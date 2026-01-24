@@ -4,12 +4,15 @@
   <br>
 </h1>
 
+<h3 align="center">Official repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h3>
+
 <p align="center">
   <strong>Nufar Cohen</strong> •
   <strong>Ori Fridman</strong>
+  <img width="1347" height="628" alt="image" src="https://github.com/user-attachments/assets/9c1d3a26-6a29-4e27-8308-853ee3503d25" />
+
 </p>
 
-<h4 align="center">Official repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h4>
 
 ## Abstract
 
