@@ -1,0 +1,5 @@
+Dataset,CE,Cosine Reg weight: 0.1,Cosine Reg weight: 1.0,SIGReg Reg weight: 0.01,Scratch18,Scratch50,VICReg Reg weight: 0.01,VICReg Reg weight: 0.1
+cifar10,79.94,78.16,71.46,76.31,85.23,83.81,81.09,78.1
+dtd,39.68,37.87,33.78,36.06,23.46,17.87,39.41,35.21
+eurosat,92.07,90.76,82.81,89.85,98.59,98.19,94.15,91.48
+flowers102,58.82,56.71,40.66,46.56,34.98,29.22,59.96,53.07
