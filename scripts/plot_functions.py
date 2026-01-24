@@ -12,28 +12,24 @@ def plot_hyperparameter_results(csv_path, ce_val_acc=None):
         csv_path (str): Path to the summary CSV.
         ce_val_acc (float): The baseline Validation Accuracy for standard Cross-Entropy.
     """
-    
-    # 1. Check if file exists to avoid errors
+
     if not os.path.exists(csv_path):
         print(f"Error: The file '{csv_path}' was not found.")
         return
 
-    # 2. Load the data
     try:
         df = pd.read_csv(csv_path)
     except Exception as e:
         print(f"Error reading CSV: {e}")
         return
 
-    # 3. Reshape (Melt) the data for Seaborn
-    # Note: Corrected the spelling to 'Weight' if your CSV header matches the code
     df_melted = df.melt(
         id_vars='Regularization Weight', 
         var_name='Technique', 
         value_name='Validation Accuracy'
     )
 
-    # 4. Setup the plot
+
     plt.figure(figsize=(10, 6))
     sns.set_style("whitegrid")
 
@@ -49,15 +45,14 @@ def plot_hyperparameter_results(csv_path, ce_val_acc=None):
         palette='deep'
     )
 
-    # 5. Add Horizontal Baseline for CE
+    # Add Horizontal Baseline line for CE
     if ce_val_acc is not None:
         plt.axhline(y=ce_val_acc, color='r', linestyle='-', linewidth=1, label=f'Baseline CE ({ce_val_acc}%)')
-        # Refresh legend to include the baseline line
         plt.legend(title='Regularization Technique', bbox_to_anchor=(1.02, 1), loc='upper left')
     plt.text(df_melted['Regularization Weight'].min(), ce_val_acc + 0.5, 
              'Baseline Cross Entropy', color='r', fontweight='bold', va='bottom')
-    # 6. Formatting
-    plt.xscale('log')  # Log scale for regularization weights
+
+    plt.xscale('log')
     plt.ylim(0, 70)
     plt.title('Validation Accuracy vs. Regularization Weight', fontsize=16)
     plt.xlabel('Regularization Weight (Log Scale)', fontsize=12)
@@ -70,6 +65,7 @@ def plot_hyperparameter_results_wrapper():
     csv_filename = f"csv_results/summary_table_full_train_hyper_parameter.csv"
     
     print(f"Generating plot from: {csv_filename}...")
+    #this is not saved in the csv, so we hardcode it here
     CE_val_acc = 62
     plot_hyperparameter_results(csv_filename, CE_val_acc)
 
@@ -79,21 +75,14 @@ def build_transfer_learning_plots(paths_array):
         paths_array: List of strings [path_to_10_samples, path_to_50_samples, 
                                      path_to_100_samples, path_to_full_data]
     """
-    # sns.set_theme(style="whitegrid", context="poster") # "talk" makes labels/lines thicker
-    # plt.rcParams['font.family'] = 'sans-serif'
-
-    # Define mapping of files to their respective training sizes for the x-axis
-    # Using 5000 as a proxy for 'Full' to fit on a log scale
-    sample_sizes = [0, 50, 100, 150] 
+    x_axis_placement = [0, 50, 100, 150] 
     labels = ['10', '50', '100', 'Full']
     
     # Load all CSVs into dataframes
     dfs = [pd.read_csv(p) for p in paths_array]
     
-    # Identify unique datasets present across the files (e.g., Cifar10, DTD, EuroSat)
     datasets = sorted(set().union(*[df['Dataset'].unique() for df in dfs]))
     
-    # Define the techniques we want to compare
     techniques = [
         'VICReg Reg weight: 0.1', 
         'VICReg Reg weight: 0.01', 
@@ -101,8 +90,8 @@ def build_transfer_learning_plots(paths_array):
         'Cosine Reg weight: 0.1', 
         'Cosine Reg weight: 1.0', 
         'CE', 
-        'Scratch18',  # Changed from 'ResNet18 From Scratch'
-        'Scratch50'  # Changed from 'ResNet18 From Scratch'
+        'Scratch18',  
+        'Scratch50'  
     ]
     color_map = {
         'CE': '#333333',       # Dark Gray/Black
@@ -125,10 +114,9 @@ def build_transfer_learning_plots(paths_array):
                 if ds in df['Dataset'].values and tech in df.columns:
                     acc = df.loc[df['Dataset'] == ds, tech].values[0]
                     accuracies.append(acc)
-                    valid_x.append(sample_sizes[i])
+                    valid_x.append(x_axis_placement[i])
             
             if accuracies:
-                # --- COLOR & STYLE LOGIC ---
                 tech_upper = tech.upper()
                 line_color = '#7f7f7f' # Default Gray
                 
@@ -154,8 +142,6 @@ def build_transfer_learning_plots(paths_array):
                 else:
                     mkr = 'o'  # Circle for all other regularization techniques (VICReg, SIGReg, Cosine)
                 
-                # Slightly vary markers or alpha if you have two of the same color
-                # Example: VICReg 0.1 could be more transparent or have a different marker
                 alpha_val = 0.4 if ('VICReg Reg weight: 0.1' in tech or 'Cosine Reg weight: 1.0' in tech or '50' in tech) else 1.0
                 plt.plot(valid_x, accuracies, label=display_label, color=line_color,
                          marker=mkr, linestyle=style, linewidth=2, alpha=alpha_val)
@@ -163,7 +149,7 @@ def build_transfer_learning_plots(paths_array):
         plt.title(f'Transfer Learning Efficiency: {ds.upper()}', fontsize=14)
         plt.xlabel('Training Samples Per Class', fontsize=12)
         plt.ylabel('Test Accuracy (%)', fontsize=12)
-        plt.xticks(sample_sizes, labels)
+        plt.xticks(x_axis_placement, labels)
         plt.gca().invert_xaxis()
         plt.grid(True, which="both", ls="-", alpha=0.3)
         plt.legend(
