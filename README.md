@@ -11,7 +11,7 @@
 
 <h4 align="center">Official repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h4>
 
----
+
 
 ## Table of Contents
 1. [Abstract](#abstract)
@@ -23,7 +23,6 @@
 7. [Experiments](#experiments)
 8. [Results & Key Findings](#results--key-findings)
 9. [Conclusions](#conclusions)
-
 
 ---
 ## Abstract
