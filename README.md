@@ -11,23 +11,21 @@
 
 <h4 align="center">Official repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h4>
 
-
-
-## Table of Contents
-1. [Abstract](#abstract)
-2. [Prerequisites](#prerequisites)
-3. [Repository Organization](#repository-organization)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Features](#features)
-7. [Experiments](#experiments)
-8. [Results & Key Findings](#results--key-findings)
-9. [Conclusions](#conclusions)
-
----
 ## Abstract
 
 This project evaluates how different regularization techniques applied to CNN features during training affect transfer learning accuracy on downstream tasks. We compare standard Cross Entropy (CE) with CE combined with Cosine Similarity, VICReg, and SIGReg regularization, training on ImageNet100 and transferring to CIFAR10, Flowers102, EuroSAT, and DTD.
+
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Repository Organization](#repository-organization)
+3. [Installation](#installation)
+4. [Usage](#usage)
+5. [Features](#features)
+6. [Experiments](#experiments)
+7. [Results & Key Findings](#results--key-findings)
+8. [Conclusions](#conclusions)
+
+---
 
 ## Prerequisites
 - Python 3.8+
