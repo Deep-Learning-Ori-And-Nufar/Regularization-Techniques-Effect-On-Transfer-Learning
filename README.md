@@ -113,12 +113,13 @@ python scripts/deep_learning_project_main_logic.py --target_dataset_name eurosat
 ```
 
 ### Automated Transfer Experiments
-Run all transfer learning configurations:
+Run Data Trimming Experiment: Iterates through all transfer learning configurations  (regularization + regularization weight) for a defined samples_per_class limit:
 ```bash
 python scripts/run_transfer_trimmed.py --samples_per_class 10
 ```
+learning configurations defined in transfer_learning_utils.py
 
-Train from scratch on all datasets:
+Train from scratch across all datasets and trimming sizes:
 ```bash
 python scripts/run_dataset_from_scratch.py
 ```
@@ -126,12 +127,12 @@ python scripts/run_dataset_from_scratch.py
 ### Analysis and Visualization
 Generate result summaries:
 ```bash
-python data_analysis_functions.py
+python scripts/data_analysis_functions.py
 ```
 
 Visualize augmentations:
 ```bash
-python image_visualization.py
+python scripts/image_visualization.py
 ```
 
 Plot training curves:
