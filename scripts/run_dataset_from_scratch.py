@@ -4,7 +4,7 @@ import os
 
 from transfer_learning_utils import DATASETS, TRIMMING_SIZES, MAIN_SCRIPT_PATH, TRANSFER_LEARNING_EPOCH
 
-def train_from_scratch(dataset_name, samples_per_class=0):
+def train_from_scratch(dataset_name, samples_per_class=0, model_size=50):
     print(f"\nStarting Training from scratch on {dataset_name}...")
 
     cmd = [
@@ -14,7 +14,8 @@ def train_from_scratch(dataset_name, samples_per_class=0):
         "--epochs", str(TRANSFER_LEARNING_EPOCH),
         "--should_train_from_scratch", str(1),
         "--samples_per_class", str(samples_per_class),
-        "--full_train_set", "1"
+        "--full_train_set", "1",
+        "--transfer_learning_model_size",str(model_size)
     ]
     
     try:
@@ -31,9 +32,12 @@ def main():
         print(f"Error: Could not find {MAIN_SCRIPT_PATH}")
         return
 
+    all_trimming_sizes = TRIMMING_SIZES.copy()
+    all_trimming_sizes.append(0)  # Ensure full dataset is included as well
     for dataset in DATASETS:
-        for trimming_size in TRIMMING_SIZES:
-            train_from_scratch(dataset, trimming_size)
+        for trimming_size in all_trimming_sizes:
+            for model_size in [18, 50]:
+                train_from_scratch(dataset, trimming_size,model_size)
 
     print("all experiments completed")
 

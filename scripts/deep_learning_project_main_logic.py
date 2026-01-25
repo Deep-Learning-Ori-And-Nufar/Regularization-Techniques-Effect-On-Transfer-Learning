@@ -33,7 +33,7 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 import torchvision.models as models
 
-TRANSFER_LEARN_MODEL_SIZE = 50
+
 DATA_ROOT_DIR = "/home/projects/sipl-prj10219/Nufar_Ori"
 CHECK_POINT_DIR = f"/home/projects/sipl-prj10219/Nufar_Ori/checkpoints"
 # Standard ImageNet statistics as requested
@@ -841,6 +841,7 @@ def train_wrapper(
     epochs=10,
     should_train_from_scratch=False,
     reg_weight=None,
+    transfer_learning_model_size=None
 ):
     """
     Runs transfer learning on a provided set of DataLoaders.
@@ -850,16 +851,16 @@ def train_wrapper(
     # Initialize TargetModel
     # Automatically finds latest checkpoint and freezes the CNN backbone
     if should_train_from_scratch:
-        if TRANSFER_LEARN_MODEL_SIZE == 18:
+        if transfer_learning_model_size == 18:
             model = models.resnet18(
                 weights=None, num_classes=get_dataset_classes(dataset_name)
             )
-        elif TRANSFER_LEARN_MODEL_SIZE == 50:
+        elif transfer_learning_model_size == 50:
             model = models.resnet50(
                 weights=None, num_classes=get_dataset_classes(dataset_name)
             )
         else:
-            raise ValueError(f"Invalid model size: {TRANSFER_LEARN_MODEL_SIZE}")
+            raise ValueError(f"Invalid model size: {transfer_learning_model_size} please use args to set this variable to 18 or 50.")
         trained_parameters = model.parameters()
         criterion = nn.CrossEntropyLoss()
     else:
@@ -888,7 +889,7 @@ def train_wrapper(
         experiment_results_dir = os.path.join(
             checkpoint_dir,
             "transfer_results",
-            f"dataset_{dataset_name}_from_scratch_model_size_{TRANSFER_LEARN_MODEL_SIZE}",
+            f"dataset_{dataset_name}_from_scratch_model_size_{transfer_learning_model_size}",
         )
     else:
         experiment_results_dir = os.path.join(
@@ -991,6 +992,7 @@ def execute_transfer_learning(
     reg_weight=None,
     is_hyperparam_tuning=False,
     use_full_train_set=False,
+    transfer_learning_model_size=None
 ):
     """
     Orchestrates the data preparation (loading & trimming) and
@@ -1089,6 +1091,7 @@ def execute_transfer_learning(
         samples_per_class=samples_per_class,
         should_train_from_scratch=should_train_from_scratch,
         reg_weight=reg_weight,
+        transfer_learning_model_size=transfer_learning_model_size
     )
 
 
@@ -1146,10 +1149,17 @@ if __name__ == "__main__":
         type=int,
         help="If True, use entire dataset for training and skip validation split.",
     )
+    parser.add_argument(
+        "--transfer_learning_model_size",
+        default=None,
+        type=int,
+        help="ResNet model size for transfer learning (18 or 50) when training from scratch.",
+    )
 
     # Parse arguments
     args = parser.parse_args()
 
+    transfer_learning_model_size = args.transfer_learning_model_size
     epochs = args.epochs
     checkpoint_dir = CHECK_POINT_DIR
     regularization_weight = args.reg_weight
@@ -1256,4 +1266,5 @@ if __name__ == "__main__":
             epochs=epochs,
             reg_weight=regularization_weight,
             use_full_train_set=use_full_train_set,
+            transfer_learning_model_size=transfer_learning_model_size
         )
