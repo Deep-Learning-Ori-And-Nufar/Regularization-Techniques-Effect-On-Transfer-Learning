@@ -171,8 +171,9 @@ def build_transfer_learning_plots_wrapper():
     build_transfer_learning_plots(paths)
 
 def main():
+    #script should be run from repo main dir
     build_transfer_learning_plots_wrapper()
-    # plot_hyperparameter_results()
+    plot_hyperparameter_results_wrapper()
 
 if __name__ == "__main__":
     main()
