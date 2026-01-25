@@ -5,9 +5,12 @@ from transfer_learning_utils import LOSSES, MAIN_SCRIPT_PATH
 epochs = 20
 reg_weights = [0.01, 0.1, 1, 10]
 for loss in LOSSES:
-    for weight in reg_weights:
-        if loss == "CE":
-            weight=None
+    if loss == "CE":
+        current_weights = [None] 
+    else:
+        current_weights = reg_weights
+    for weight in current_weights:
+        
         print(f"\n" + "="*60)
         print(f"STARTING TRAINING | Loss: {loss} | Reg Weight: {weight}")
         print("="*60)
