@@ -32,7 +32,7 @@ def main():
         return
 
     for dataset in DATASETS:
-        for trimming_size in [TRIMMING_SIZES]:
+        for trimming_size in TRIMMING_SIZES:
             train_from_scratch(dataset, trimming_size)
 
     print("all experiments completed")
