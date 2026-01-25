@@ -81,7 +81,7 @@ DATA_ROOT_DIR/
 ### Full Training on ImageNet100
 Train ResNet50 from scratch with regularization:
 ```bash
-python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weight 0.1 --train_type full_train --epochs 60
+python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weight 0.1 --train_type full_train --epochs 100
 ```
 
 Available loss options: `CE`, `Cosine`, `VICReg`, `SIGReg` (defined in transfer_learning_utils.py under LOSSES).
@@ -95,21 +95,21 @@ python scripts/run_hyper_parameters.py
 ### Transfer Learning
 Transfer pre-trained weights to downstream datasets:
 ```bash
-python scripts/deep_learning_project_main_logic.py --loss_name Cosine --reg_weight 0.1 --target_dataset_name cifar10 --train_type transfer --epochs 20
+python scripts/deep_learning_project_main_logic.py --loss_name Cosine --reg_weight 0.1 --target_dataset_name cifar10 --train_type transfer --epochs 50
 ```
 Available datasets options: `cifar10`, `flowers102`, `eurosat`, `dtd` (defined in transfer_learning_utils.py under DATASETS).
 
 ### Transfer with Dataset Trimming
 Limit samples per class for small dataset simulation:
 ```bash
-python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weight 1.0 --target_dataset_name flowers102 --train_type transfer --samples_per_class 50 --epochs 20
+python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weight 1.0 --target_dataset_name flowers102 --train_type transfer --samples_per_class 10 --epochs 50
 ```
 Available size options used in our project :10, 50, 100 (defined in transfer_learning_utils.py under TRIMMING_SIZES).
 
 ### Train from Scratch (No Pre-training)
 Baseline comparison without transfer learning:
 ```bash
-python scripts/deep_learning_project_main_logic.py --target_dataset_name eurosat --train_type transfer --should_train_from_scratch 1 --epochs 20
+python scripts/deep_learning_project_main_logic.py --target_dataset_name eurosat --train_type transfer --should_train_from_scratch 1 --epochs 50
 ```
 
 ### Automated Transfer Experiments
