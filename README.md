@@ -117,7 +117,8 @@ Run Data Trimming Experiment: Iterates through all transfer learning configurati
 ```bash
 python scripts/run_transfer_trimmed.py --samples_per_class 10
 ```
-learning configurations defined in transfer_learning_utils.py
+(transfer learning configurations defined in transfer_learning_utils.py)
+
 
 Train from scratch across all datasets and trimming sizes:
 ```bash
