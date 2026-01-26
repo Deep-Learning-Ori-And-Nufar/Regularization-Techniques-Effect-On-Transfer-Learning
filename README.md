@@ -9,7 +9,7 @@
 <p align="center">
   <strong>Nufar Cohen</strong> •
   <strong>Ori Fridman</strong>
-  <img width="1347" height="628" alt="image" src="https://github.com/user-attachments/assets/9c1d3a26-6a29-4e27-8308-853ee3503d25" />
+  <img width="1325" height="504" alt="image" src="https://github.com/user-attachments/assets/37488486-6a87-4c49-a561-a98b082cc28a" />
 
 </p>
 
