@@ -51,6 +51,8 @@ This project evaluates how different regularization techniques applied to CNN fe
 | `scripts/plot_functions.py` | Plots training results and confusion matrices |
 | `csv_results/` | Directory for CSV summary tables |
 | `plots/` | Directory for generated plots and visualizations |
+| `plots/full_train/` | Directory containing training loss and accuracy graphs for full training experiments |
+| `plots/hyperparameters_tuning/` | Directory containing training loss and validation accuracy graphs for hyperparameter tuning experiments |
 | `Project_Report_24_01.docx` | Detailed project report |
 
 ## Installation
