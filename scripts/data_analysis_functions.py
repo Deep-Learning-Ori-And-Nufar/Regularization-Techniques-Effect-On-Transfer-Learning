@@ -163,41 +163,51 @@ def compare_test_results(loss_configs, checkpoint_dir, is_transfer=True, trimmin
     else:
         print("No results found to compile.")
         return None
-    
-if __name__ == "__main__":
-    #for saving trimming results
-    # final_configs = all_loss_configs + [
-    #     {"loss": "Scratch18", "weight": None},
-    #     {"loss": "Scratch50", "weight": None}
-    # ]
-    # for trimming_size in TRIMMING_SIZES:
-    #     compare_test_results(loss_configs=final_configs, checkpoint_dir=os.path.join(DATA_ROOT_DIR,"checkpoints"), is_transfer=True, trimming_size=trimming_size)
-    # our_loss_configs = [
-    #     {"loss": "CE",      "weight": None},
-    #     {"loss": "Cosine",  "weight": 0.01},
-    #     {"loss": "Cosine",  "weight": 0.1},
-    #     {"loss": "Cosine",  "weight": 1.0},
-    #     {"loss": "Cosine",  "weight": 10.0},
-    #     {"loss": "VICReg",  "weight": 0.01},
-    #     {"loss": "VICReg",  "weight": 0.1},
-    #     {"loss": "VICReg",  "weight": 1.0},
-    #     {"loss": "VICReg",  "weight": 10.0},
-    #     {"loss": "SIGReg",  "weight": 0.01},
-    #     {"loss": "SIGReg",  "weight": 0.1},
-    #     {"loss": "SIGReg",  "weight": 1.0},
-    #     {"loss": "SIGReg",  "weight": 10.0},
-    # ]
 
-    # checkpoints_path = os.path.join(DATA_ROOT_DIR, "checkpoints")
+def compare_transfer_learning_results(loss_configs, checkpoint_dir):
+    """
+    Generates a pivot-table CSV comparing test accuracy for hyperparameter tuning.
+    """
+    #for saving trimming results
+    final_configs = all_loss_configs + [
+        {"loss": "Scratch18", "weight": None},
+        {"loss": "Scratch50", "weight": None}
+    ]
+    all_trimming_sizes = TRIMMING_SIZES.copy()
+    all_trimming_sizes.append(0)  # Ensure full dataset is included as well
     
-    # compare_val_results_at_epoch(
-    #     loss_configs=our_loss_configs, 
-    #     checkpoint_dir=checkpoints_path, 
-    #     epoch=20
-    # )
-    #to check the hyper parameter tuning
-    # compare_test_results(loss_configs=our_loss_configs, checkpoint_dir=os.path.join(DATA_ROOT_DIR,"checkpoints"), is_transfer=False)
-    # all_loss_configs.append({"loss": "Scratch18",  "weight": None})
-    # all_loss_configs.append({"loss": "Scratch50",  "weight": None})
-    # compare_test_results(loss_configs=all_loss_configs, checkpoint_dir=os.path.join(DATA_ROOT_DIR,"checkpoints"), is_transfer=True)
+    for trimming_size in all_trimming_sizes:
+        compare_test_results(loss_configs=final_configs, checkpoint_dir=os.path.join(DATA_ROOT_DIR,"checkpoints"), is_transfer=True, trimming_size=trimming_size)
+    
+def compare_hyperparameters_results( checkpoint_dir):
+    hyperparams_loss_configs = [
+        {"loss": "CE", "weight": None}
+    ]
+
+    for loss_type in ["Cosine", "VICReg", "SIGReg"]:
+        for weight in [0.01, 0.1, 1.0, 10.0]:
+            hyperparams_loss_configs.append({"loss": loss_type, "weight": weight})
+
+    checkpoints_path = os.path.join(DATA_ROOT_DIR, "checkpoints")
+    
+    compare_val_results_at_epoch(
+        loss_configs=hyperparams_loss_configs, 
+        checkpoint_dir=checkpoints_path, 
+        epoch=20
+    )
+
+def compare_full_training_results(loss_configs, checkpoint_dir):
+    """
+    Generates a pivot-table CSV comparing test accuracy for full training runs.
+    """
     compare_test_results(loss_configs=all_loss_configs, checkpoint_dir=os.path.join(DATA_ROOT_DIR,"checkpoints"), is_transfer=False)
+
+def main():
+    checkpoint_dir = os.path.join(DATA_ROOT_DIR,"checkpoints")
+    # activate based on desired comparison
+    # compare_hyperparameters_results(checkpoint_dir=checkpoint_dir)
+    # compare_transfer_learning_results(loss_configs=all_loss_configs, checkpoint_dir=checkpoint_dir)
+    # compare_full_training_results(loss_configs=all_loss_configs, checkpoint_dir=checkpoint_dir)
+
+if __name__ == "__main__":
+    main()
