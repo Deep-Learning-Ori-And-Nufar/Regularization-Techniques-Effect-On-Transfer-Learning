@@ -34,8 +34,8 @@ from sklearn.metrics import confusion_matrix
 import torchvision.models as models
 
 
-DATA_ROOT_DIR = "/home/projects/sipl-prj10219/Nufar_Ori"
-CHECK_POINT_DIR = f"/home/projects/sipl-prj10219/Nufar_Ori/checkpoints"
+DATA_ROOT_DIR = "./"
+CHECK_POINT_DIR = f"./checkpoints"
 # Standard ImageNet statistics as requested
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
