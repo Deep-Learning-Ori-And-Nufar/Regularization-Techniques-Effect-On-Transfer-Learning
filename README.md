@@ -89,20 +89,20 @@ python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weig
 Available loss options: `CE`, `Cosine`, `VICReg`, `SIGReg` (defined in transfer_learning_utils.py under LOSSES).
 
 ### Hyperparameter Tuning
-Run automated hyperparameter search:
+Run automated hyperparameter search, training ResNet50 for 20 epochs with all regularization methods, for each regularization weight in [0.01, 0.1, 1, 10] (will create checkpoints and plots for validation accuracy):
 ```bash
 python scripts/run_hyper_parameters.py
 ```
 
 ### Transfer Learning
-Transfer pre-trained weights to downstream datasets:
+Train downstream datasets using the pre-trained CNN weights training only the FC layer of the ResNet50 model:
 ```bash
 python scripts/deep_learning_project_main_logic.py --loss_name Cosine --reg_weight 0.1 --target_dataset_name cifar10 --train_type transfer --epochs 50
 ```
 Available datasets options: `cifar10`, `flowers102`, `eurosat`, `dtd` (defined in transfer_learning_utils.py under DATASETS).
 
 ### Transfer with Dataset Trimming
-Limit samples per class for small dataset simulation:
+Train downstream datasets using the pre-trained CNN weights with limited samples per class for evalauating transfer learning to small datasets:
 ```bash
 python scripts/deep_learning_project_main_logic.py --loss_name VICReg --reg_weight 1.0 --target_dataset_name flowers102 --train_type transfer --samples_per_class 10 --epochs 50
 ```
