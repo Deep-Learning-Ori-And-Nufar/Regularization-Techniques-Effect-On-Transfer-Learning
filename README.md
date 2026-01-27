@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-<h3 align="center">Official repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h3>
+<h3 align="center">This epository goal is evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h3>
 
 <p align="center">
   <strong>Nufar Cohen</strong> •
@@ -16,7 +16,7 @@
 
 ## Abstract
 
-This project evaluates how different regularization techniques applied to CNN features during training affect transfer learning accuracy on downstream tasks. We compare standard Cross Entropy (CE) with CE combined with Cosine Similarity, VICReg, and SIGReg regularization, training on ImageNet100 and transferring to CIFAR10, Flowers102, EuroSAT, and DTD.
+This project evaluates how different regularization techniques applied to the latent CNN features during training effect transfer learning accuracy on downstream tasks. We compare standard Cross Entropy (CE) with CE combined with Cosine Similarity, VICReg, and SIGReg regularization, training on ImageNet100 and transferring to CIFAR10, Flowers102, EuroSAT, and DTD.
 
 ## Table of Contents
 1. [Prerequisites](#prerequisites)
