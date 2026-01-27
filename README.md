@@ -4,7 +4,7 @@
   <br>
 </h1>
 
-<h3 align="center">Repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h3>
+<h3 align="center">Deep Learning repository for evaluating the impact of SSL-inspired regularization techniques on transfer learning performance</h3>
 
 <p align="center">
   <strong>Nufar Cohen</strong> •
