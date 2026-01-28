@@ -307,10 +307,8 @@ python scripts/plot_functions.py
 
 ## Conclusions
 
-Regularization Impact: Adding SSL-inspired constraints to latent features positively influences transfer learning.
+Regularization Impact: Adding SSL-inspired constraints to latent features can positively influences transfer learning as seen with VICReg but needed to be further examined with methods and on different hyperparameters.
 
 VICReg Superiority: VICReg was the only method to consistently surpass the Cross-Entropy baseline across various datasets.
 
 Inverse Correlation: An inverse correlation was observed between pretraining accuracy and transfer learning effectiveness; methods like SIGReg and Cosine Similarity improved source accuracy but failed to enhance transfer performance.
-
-Feature Quality: Regularization helps the model learn fine-grained details and "feature libraries" that are useful for domain shifts and small-scale datasets.
