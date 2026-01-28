@@ -161,13 +161,14 @@ python scripts/plot_functions.py
 - **SIGReg**: Isotropic Gaussian regularization
 
 ### Transfer Learning Evaluation
+- Datasets: DTD, EuroSat, Flowers102, CIFAR10
 - Frozen backbone fine-tuning
-- Performance across domains: objects, textures, satellite, flowers
-- Dataset trimming studies (10, 50, 100 samples/class)
+- Performance across different domains: objects, textures, satellite, flowers
+- Examined Fine-grained details extractions via flowers102 dataset
+- Dataset trimming studies (10, 50, 100 samples/class) - to test the ability of the model to trained based on small datasets
 
 ## Results & Key Findings
-- Most Regularizations improved ImageNet100 generalization
-- VICReg achieved best results for transfer learning
+- VICReg achieved best results for transfer learning and was the only one which consistently surpassed regular CE loss
 
 <b>Transfer Learning Test Accuracy Without Trimming: </b>
 
