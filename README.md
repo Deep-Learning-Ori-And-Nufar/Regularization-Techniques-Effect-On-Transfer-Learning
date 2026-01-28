@@ -53,6 +53,7 @@ This project evaluates how different regularization techniques applied to the la
 | `plots/` | Directory for generated plots and visualizations |
 | `plots/full_train/` | Directory containing training loss and accuracy graphs for full training experiments |
 | `plots/hyperparameters_tuning/` | Directory containing training loss and validation accuracy graphs for hyperparameter tuning experiments |
+| `plots/transfer_learning/` | Directory containing training and validation accuracy graphs for transfer learning experiments organized by dataset (cifar10, dtd, eurosat, flowers102) |
 | `Project_Report_24_01.docx` | Detailed project report |
 
 ## Installation
